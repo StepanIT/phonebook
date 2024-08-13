@@ -95,10 +95,10 @@ const data = [
       </tr>
       `);
 
-      const tbody = document.createElement('tbody');
+    const tbody = document.createElement('tbody');
 
-      table.append(thead, tbody);
-      table.tbody = tbody;
+    table.append(thead, tbody);
+    table.tbody = tbody;
 
     return table;
   };
@@ -128,30 +128,48 @@ const data = [
       </div>
       `);
 
-      const buttonGroup = createButtonsGroup([
-        {
-          className: 'btn btn-primary mr-3',
-          type: 'submit',
-          text: 'Добавить',
-        },
-        {
-          className: 'btn btn-danger',
-          type: 'reset',
-          text: 'Отмена',
-        },
-      ]);
+    const buttonGroup = createButtonsGroup([
+      {
+        className: 'btn btn-primary mr-3',
+        type: 'submit',
+        text: 'Добавить',
+      },
+      {
+        className: 'btn btn-danger',
+        type: 'reset',
+        text: 'Отмена',
+      },
+    ]);
 
-      form.append(...buttonGroup.btns);
+    form.append(...buttonGroup.btns);
 
-      overlay.append(form);
+    overlay.append(form);
 
-      return {
-        overlay,
-        form,
-      };
+    return {
+      overlay,
+      form,
+    };
   };
-  
 
+  const createFooter = () => {
+    const footer = document.createElement('footer');
+    footer.classList.add('footer');
+
+    const footerContainer = createContainer();
+    footer.append(footerContainer);
+
+    footer.footerContainer = footerContainer;
+
+    return footer;
+  };
+
+  const createCopyright = title => {
+    const copyright = document.createElement('span');
+    copyright.classList.add('copyright');
+    copyright.textContent = `Все права защищены ©${title}`;
+
+    return copyright;
+  };
 
   const renderPhoneBook = (app, title) => {
     const header = createHeader();
@@ -172,25 +190,26 @@ const data = [
 
     const table = createTable();
     const form = createForm();
+    const footer = createFooter();
+    const copyright = createCopyright(title);
 
     header.headerContainer.append(logo);
     main.mainContainer.append(buttonGroup.btnWrapper, table, form.overlay);
-    app.append(header, main);
+    footer.footerContainer.append(copyright);
+    app.append(header, main, footer);
 
     return {
       list: table.tbody,
-    }
+    };
   };
 
   const createRow = ({name: firstName, surname, phone}) => {
-    console.log('dataObj: ', dataObj);
-
     const tr = document.createElement('tr');
 
     const tdDel = document.createElement('td');
     tdDel.classList.add('delete');
     const buttonDel = document.createElement('button');
-    buttonDel.classList.add('del-icon')
+    buttonDel.classList.add('del-icon');
     tdDel.append(buttonDel);
 
     const tdName = document.createElement('td');
@@ -202,20 +221,19 @@ const data = [
     const tdPhone = document.createElement('td');
     const phoneLink = document.createElement('a');
     phoneLink.href = `tel:${phone}`;
-    tdPhone.textContent = phone;
+    phoneLink.textContent = phone;
 
     tdPhone.append(phoneLink);
 
     tr.append(tdDel, tdName, tdSurname, tdPhone);
 
     return tr;
-
-  }
+  };
 
   const renderContacts = (elem, data) => {
     const allRow = data.map(createRow);
     elem.append(...allRow);
-  }
+  };
 
   const init = (selectorApp, title) => {
     const app = document.querySelector(selectorApp);
@@ -225,7 +243,7 @@ const data = [
 
     renderContacts(list, data);
     // Функционал
-  }
+  };
 
   window.phoneBookInit = init;
 }

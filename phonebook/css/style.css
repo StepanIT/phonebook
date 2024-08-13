@@ -22,6 +22,7 @@ body {
   }
 }
 
+
 .delete {
   display: none;
 }
@@ -129,4 +130,8 @@ body {
   background-color: #3E5E93;
   color: #fff;
   text-align: center;
+}
+
+.copyright {
+  font-size: 16px;
 }
