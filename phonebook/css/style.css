@@ -16,6 +16,17 @@ body {
   text-transform: uppercase;
 }
 
+.btn-edit {
+  width: 15px;
+  height: 15px;
+  border: none;
+  background-color: transparent;
+  background-image: url("../img/edit_icon.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 @media (max-width: 720px) {
   .logo {
     font-size: 20px;
