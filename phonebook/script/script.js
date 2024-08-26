@@ -22,6 +22,26 @@ const data = [
   },
 ];
 
+
+const getStorage = key => {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : [];
+};
+
+
+const setStorage = (key, object) => {
+  const data = getStorage(key);
+  data.push(object);
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+const removeStorage = (key, phone) => {
+  let data = getStorage(key);
+  data = data.filter(contact => contact.phone !== phone);
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+
 {
   const addContactData = contact => {
     data.push(contact);
@@ -297,7 +317,10 @@ const data = [
     list.addEventListener('click', e => {
       const target = e.target;
       if (target.closest('.del-icon')) {
-        target.closest('.contact').remove();
+        const contactRow = target.closest('.contact');
+        const phone = contactRow.querySelector('a').textContent;
+        removeStorage('contacts', phone);
+        contactRow.remove();
       }
     });
   };
@@ -315,6 +338,7 @@ const data = [
 
       addContactPage(newContact, list);
       addContactData(newContact);
+      setStorage('contacts', newContact);
       form.reset();
       closeModal();
     });
@@ -334,6 +358,8 @@ const data = [
 
 
     // Функционал
+
+    const data = getStorage('contacts');
 
     const allRow = renderContacts(list, data);
     const {closeModal} = modalControl(btnAdd, formOverlay);
