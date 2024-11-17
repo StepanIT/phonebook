@@ -1,8 +1,10 @@
-import * as create from './createElements.js';
+import * as create from './createElements';
+import {createImageLogo} from './createElements';
 
 
 export const renderPhoneBook = (app, title) => {
   const header = create.createHeader();
+  const imageLogo = createImageLogo();
   const logo = create.createLogo(title);
   const main = create.createMain();
   const buttonGroup = create.createButtonsGroup([
@@ -23,7 +25,7 @@ export const renderPhoneBook = (app, title) => {
   const footer = create.createFooter();
   const copyright = create.createCopyright(title);
 
-  header.headerContainer.append(logo);
+  header.headerContainer.append(imageLogo, logo);
   main.mainContainer.append(buttonGroup.btnWrapper, table, overlay);
   footer.footerContainer.append(copyright);
   app.append(header, main, footer);

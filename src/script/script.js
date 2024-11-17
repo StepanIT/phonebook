@@ -1,7 +1,7 @@
-import {deleteControl, formControl, modalControl} from './control.js';
-import {renderContacts, renderPhoneBook} from './render.js';
-import hoverRow from './render.js';
-import {getStorage} from './serviceStorage.js';
+import {deleteControl, formControl, modalControl} from './control';
+import {renderContacts, renderPhoneBook} from './render';
+import hoverRow from './render';
+import {getStorage} from './serviceStorage';
 
 
 {
